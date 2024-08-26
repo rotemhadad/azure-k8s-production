@@ -1,0 +1,53 @@
+# Kubernetes Cluster Setup and Application Deployment
+
+## Overview
+
+This project involves setting up an Azure Kubernetes Service (AKS) cluster with specific requirements and deploying two services (Service A and Service B) with an Ingress controller. The setup is automated and designed to be production-ready, with specific guidelines for ensuring the cluster is reliable and maintainable.
+
+## Task Description
+    - Create a Kubernetes cluster with the following:
+    - **Service A:** Retrieves Bitcoin value in USD from an API every minute and prints it. Additionally, it calculates and prints the average value of the last 10 minutes every 10 minutes.
+    - **Service B:** Prints "Hello Microsoft!" or maintains default behavior.
+    - Deploy an Ingress controller to redirect traffic to the appropriate service based on the URL path (`/service-a` or `/service-b`).
+    - Implement a network policy to ensure Service A cannot communicate with Service B.
+
+## Setup Instructions
+
+### 1. Azure Setup
+- **Create an Azure Account:** [Azure Sign Up](https://azure.microsoft.com/en-us/free/)
+
+### 2. Run `setup-aks.ps1` Script
+
+The `setup-aks.ps1` script automates the setup of the AKS cluster, configures the Ingress controller, and deploys the necessary resources.
+
+**Prerequisites:**
+- Ensure you have Azure CLI (`az`) and `kubectl` installed.
+- Update the script with your Service Principal credentials and other necessary details.
+
+**Steps:**
+
+1. **Login to Azure:**
+   ```powershell
+   az login
+   ```
+
+2. **Set Azure Subscription:**
+   ```powershell
+   az account set --subscription <your-subscription-id>
+   ```
+
+3. **Run the Script:**
+   ```powershell
+   .\setup-aks.ps1
+   ```
+
+
+### 3. Access the Services
+
+After running the script, you can access your services using the Ingress IP:
+
+- **Service A URL:** `http://<ingress-ip>/service-a`
+- **Service B URL:** `http://<ingress-ip>/service-b`
+
+
+

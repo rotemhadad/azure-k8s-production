@@ -1,0 +1,23 @@
+#service-a.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-a
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-a
+  template:
+    metadata:
+      labels:
+        app: service-a
+    spec:
+      containers:
+      - name: service-a
+        image: rotemhadad/service-a:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 81
+
+

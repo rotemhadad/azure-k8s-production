@@ -1,0 +1,35 @@
+#network-policy-deny-a-to-b.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-service-a-to-service-b
+  namespace: default  
+spec:
+  podSelector:
+    matchLabels:
+      app: service-a
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - port: 443
+      protocol: TCP
+    - port: 80
+      protocol: TCP
+  - to:
+    - podSelector:
+        matchLabels:
+          app: service-a
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+      
+
+
