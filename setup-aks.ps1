@@ -16,6 +16,12 @@ if (-not (Get-Command az -ErrorAction SilentlyContinue)) {
 # Log in to Azure
 az login
 
+# Install kubectl if not installed
+if (-not (Get-Command kubectl -ErrorAction SilentlyContinue)) {
+    Write-Host "kubectl not found. Installing kubectl..."
+    az aks install-cli
+}
+
 # Create Resource Group
 az group create --name $resourceGroupName --location $location
 
@@ -27,6 +33,7 @@ az aks create `
     --enable-addons monitoring `
     --enable-rbac `
     --location $location `
+    --network-policy azure ` 
     --generate-ssh-keys
 
 # Get AKS credentials
